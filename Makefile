@@ -1,4 +1,5 @@
 PYTHON_VERSION := $(shell cat .python-version)
+export PYTHONPATH := ${PWD}
 
 install-uv:
 	curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -13,8 +14,6 @@ setup: install-python
 	# add PYTHONPATH to .env for things like Jupyter
 	echo "PYTHONPATH=${PWD}" >> .env
 
-pathexport:
-	export PYTHONPATH=${PWD}
 
 precommit:
 	uv run pre-commit run --all-files
@@ -22,11 +21,12 @@ precommit:
 format:
 	uv run black .
 
-datadownload: pathexport
+datadownload:
 	uv run python scripts/fetch_rule_jsons.py
 
-transform: pathexport
+transform:
 	uv run python scripts/process_abilities-scores.py
+	uv run python scripts/process_allignments.py
 
 coverage:
 	uv run coverage run -m pytest
