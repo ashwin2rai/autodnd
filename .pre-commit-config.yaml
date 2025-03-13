@@ -1,0 +1,59 @@
+default_install_hook_types: [pre-commit, commit-msg, post-checkout, post-merge, pre-push]
+default_language_version:
+  python: python3.12.8
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: fix-byte-order-marker
+      - id: check-ast
+      - id: name-tests-test
+        exclude: tests/utils/
+      - id: check-yaml
+        exclude: mkdocs.yml
+      - id: check-toml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+     # - id: no-commit-to-branch
+     #   args: [ "--branch", "--pattern", "release/.*"]
+     #   stages: [pre-commit]
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.19.1
+    hooks:
+      - id: gitlint
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.2
+    hooks:
+      - id: ruff
+        args:
+          - --fix
+          - --exit-non-zero-on-fix
+      - id: ruff-format
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
+  # Verify that the Dockerfiles follow best practices
+  # Hadolint will only find files named Dockerfile or *.Dockerfile
+  - repo: https://github.com/AleksaC/hadolint-py
+    rev: v2.12.0.3
+    hooks:
+      - id: hadolint
+  - repo: https://github.com/tofuutils/pre-commit-opentofu
+    rev: v1.0.3
+    hooks:
+      - id: tofu_fmt
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.14.1
+    hooks:
+      - id: mypy
+        exclude: (^tests/|^notebooks/)
+        additional_dependencies:
+          - boto3-stubs[bedrock-runtime,pricing,s3]==1.36.8
+          - pandas-stubs==2.2.3.241126
+          - types-pyyaml==6.0.12.20241230
+          - types-tqdm==4.67.0.20250301
