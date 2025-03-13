@@ -1,15 +1,17 @@
-from autodnd.utils.project_root import get_project_root
 import pandas as pd
 import json
+
+from autodnd.utils.project_root import get_project_root
+from autodnd.utils.ruleset_enum import RuleSet
 
 # folder where you want the jsons to reside
 data_folder = get_project_root() / "data" / "jsonrules"
 
-# filename string
-ruleset = "Ability-Scores"
-
 # folder to save the content
 save_folder = get_project_root() / "data" / "processed"
+
+# What string to use to fill NA values
+na_string = "none"
 
 
 # column names from the original ability scores json file
@@ -21,6 +23,9 @@ skills_key_name = "name"
 urls_col_str = "url"
 
 if __name__ == "__main__":
+    # filename string
+    ruleset = RuleSet.ABILITY_SCORES.value
+
     # Load the JSON file
     json_rule_path = data_folder / f"{ruleset}.json"
     with open(json_rule_path, "r") as file:
@@ -67,7 +72,7 @@ if __name__ == "__main__":
         pd.merge(df, skills, how="left", left_on=abilities_col_str, right_on="ab_name")
         .drop([skills_col_str, urls_col_str], axis=1)
         .apply(lambda x: x.str.lower())
-        .fillna("none")
+        .fillna(na_string)
         .rename(columns={abilities_col_str: "ability_name"})
     )
 

@@ -22,6 +22,9 @@ precommit:
 format:
 	uv run black .
 
+datadownload: pathexport
+	uv run python scripts/fetch_rule_jsons.py
+
 transform: pathexport
 	uv run python scripts/process_abilities-scores.py
 
