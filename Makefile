@@ -22,6 +22,9 @@ precommit:
 format:
 	uv run black .
 
+transform: pathexport
+	uv run python scripts/process_abilities-scores.py
+
 coverage:
 	uv run coverage run -m pytest
 	uv run coverage report
