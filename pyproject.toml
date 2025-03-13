@@ -6,6 +6,10 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = []
 
+[tool.setuptools.packages.find]
+where = ["./"]
+include = ["autodnd"]
+
 [tool.pytest.ini_options]
 pythonpath = ["autodnd"]
 

@@ -13,6 +13,9 @@ setup: install-python
 	# add PYTHONPATH to .env for things like Jupyter
 	echo "PYTHONPATH=${PWD}" >> .env
 
+pathexport:
+	export PYTHONPATH=${PWD}
+
 precommit:
 	uv run pre-commit run --all-files
 
