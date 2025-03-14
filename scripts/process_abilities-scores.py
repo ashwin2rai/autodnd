@@ -62,6 +62,7 @@ if __name__ == "__main__":
             ],
             axis=1,
         )
+        .fillna(na_string)
         .groupby("ab_name")
         .sum()
         .rename(columns={skills_key_name: "skill_names"})
@@ -71,7 +72,6 @@ if __name__ == "__main__":
     output_df = (
         pd.merge(df, skills, how="left", left_on=abilities_col_str, right_on="ab_name")
         .drop([skills_col_str, urls_col_str], axis=1)
-        .apply(lambda x: x.str.lower())
         .fillna(na_string)
         .rename(columns={abilities_col_str: "ability_name"})
     )

@@ -14,10 +14,11 @@ save_folder = get_project_root() / "data" / "processed"
 # column names from the original allignments json file
 url_col_str = "url"
 index_col_str = "index"
+typical_speakers_col_str = "typical_speakers"
 
 if __name__ == "__main__":
     # filename string
-    ruleset = RuleSet.CONDITIONS.value
+    ruleset = RuleSet.LANGUAGES.value
 
     # Load the JSON file
     json_rule_path = data_folder / f"{ruleset}.json"
@@ -27,20 +28,14 @@ if __name__ == "__main__":
     # Normalize the JSON data to flatten it
     df = pd.json_normalize(data, sep="_")
 
-    # Drop unnecessary columns
-    df = df.drop([url_col_str, index_col_str], axis=1)
-
-    # Check if the JSON data has the expected schema
-    assert set(df.columns.to_list()) == set(["name", "desc"]), (
-        "Unexpected data organization, schema has probably changed"
-    )
-
-    # Concatenate and slightly modify the condition descriptions so the LLM can comprehend the descriptions better.
-    df = df.assign(
-        desc=lambda temp: temp.desc.apply(
-            lambda x: " ".join(x).replace("- ", "Condition Effect: ")
-            + " Note: The term creature is used generally and may represent an enemy, NPC, animal, or player characters."
+    # Drop unnecessary columns and join the list elements inside the typical_speakers column
+    df = (
+        df.drop([url_col_str, index_col_str], axis=1)
+        .assign(
+            temp=lambda x: x[typical_speakers_col_str].apply(lambda y: ", ".join(y))
         )
+        .drop(typical_speakers_col_str, axis=1)
+        .rename(columns={"temp": typical_speakers_col_str})
     )
 
     # Save the table as a parquet file
