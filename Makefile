@@ -27,6 +27,10 @@ datadownload:
 transform:
 	uv run python scripts/process_abilities-scores.py
 	uv run python scripts/process_allignments.py
+	uv run python scripts/process_conditions.py
+	uv run python scripts/process_damage-types.py
+	uv run python scripts/process_languages.py
+
 
 coverage:
 	uv run coverage run -m pytest
