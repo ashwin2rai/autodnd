@@ -1,37 +1,12 @@
 from autodnd.utils.project_root import get_project_root
 from autodnd.utils.fetch_tools import download_file
+from autodnd.utils.ruleset_enum import RuleSet
 
 # folder where you want the jsons to reside
 data_folder = get_project_root() / "data" / "jsonrules"
 
 # the various ruleset strings
-ruleset_list = [
-    "Ability-Scores",
-    "Alignments",
-    "Backgrounds",
-    "Classes",
-    "Conditions",
-    "Damage-Types",
-    "Equipment-Categories",
-    "Equipment",
-    "Feats",
-    "Features",
-    "Languages",
-    "Levels",
-    "Magic-Items",
-    "Magic-Schools",
-    "Monsters",
-    "Proficiencies",
-    "Races",
-    "Rule-Sections",
-    "Rules",
-    "Skills",
-    "Spells",
-    "Subclasses",
-    "Subraces",
-    "Traits",
-    "Weapon-Properties",
-]
+ruleset_list = RuleSet.to_list()
 
 # the year of the rules, currently only 2014 exists
 year = "2014"
