@@ -72,12 +72,15 @@ if __name__ == "__main__":
         ],
         axis=1,
     )
+
+    # Cleaning up the description column
     df = (
         df.assign(temp=lambda x: x[desc_col_str].apply(lambda y: "".join(y)))
         .drop(desc_col_str, axis=1)
         .rename(columns={"temp": desc_col_str})
     )
 
+    # merging with the abilities dataframe
     output_df = pd.merge(df, abilities_df, on=ability_score_name_col, how="left")
 
     # Save the table as a parquet file
