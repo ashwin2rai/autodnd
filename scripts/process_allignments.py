@@ -25,7 +25,10 @@ if __name__ == "__main__":
         data = json.load(file)
 
     # Normalize the JSON data to flatten it
-    df = pd.json_normalize(data, sep="_").drop([url_col_str, index_col_str], axis=1)
+    df = pd.json_normalize(data, sep="_")
+
+    # Dropping unnecessary columns
+    df = df.drop([url_col_str, index_col_str], axis=1)
 
     # Check if the JSON data has the expected schema
     assert set(df.columns.to_list()) == set(["name", "abbreviation", "desc"]), (
