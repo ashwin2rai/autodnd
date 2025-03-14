@@ -31,8 +31,7 @@ transform:
 	uv run python scripts/process_damage-types.py
 	uv run python scripts/process_languages.py
 	uv run python scripts/process_magic-schools.py
-
-
+	uv run python scripts/process_skills.py
 
 coverage:
 	uv run coverage run -m pytest
