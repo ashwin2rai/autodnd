@@ -30,6 +30,8 @@ transform:
 	uv run python scripts/process_conditions.py
 	uv run python scripts/process_damage-types.py
 	uv run python scripts/process_languages.py
+	uv run python scripts/process_magic-schools.py
+
 
 
 coverage:
