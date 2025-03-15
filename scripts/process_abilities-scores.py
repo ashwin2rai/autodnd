@@ -76,6 +76,11 @@ if __name__ == "__main__":
         .rename(columns={abilities_col_str: "ability_name"})
     )
 
+    # Check if the output data has the expected schema before saving
+    assert set(output_df.columns.to_list()) == set(
+        ["ability_name", "full_name", "desc", "skill_names"]
+    ), "Unexpected column names, schema has probably changed"
+
     # Save the table as a parquet file
     save_folder.mkdir(parents=True, exist_ok=True)
     output_df.to_parquet(save_folder / f"{ruleset}.parquet")

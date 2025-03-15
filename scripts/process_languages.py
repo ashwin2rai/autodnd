@@ -38,6 +38,11 @@ if __name__ == "__main__":
         .rename(columns={"temp": typical_speakers_col_str})
     )
 
+    # Check if the output data has the expected schema before saving
+    assert set(df.columns.to_list()) == set(
+        ["name", "type", "script", "desc", "typical_speakers"]
+    ), "Unexpected column names, schema has probably changed"
+
     # Save the table as a parquet file
     save_folder.mkdir(parents=True, exist_ok=True)
     df.to_parquet(save_folder / f"{ruleset}.parquet")

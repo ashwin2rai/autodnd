@@ -12,7 +12,6 @@ save_folder = get_project_root() / "data" / "processed"
 
 
 # column names from the original allignments json file
-url_col_str = "url"
 index_col_str = "index"
 desc_col_str = "desc"
 
@@ -34,10 +33,15 @@ if __name__ == "__main__":
     )
 
     # Dropping unnecessary columns
-    df = df.drop([url_col_str, index_col_str], axis=1)
+    df = df.drop([index_col_str], axis=1)
 
     # cleaning up the desc column
     df[desc_col_str] = df[desc_col_str].apply(lambda x: " ".join(x))
+
+    # Check if the output data has the expected schema before saving
+    assert set(df.columns.to_list()) == set(["name", "desc", "url"]), (
+        "Unexpected column names, schema has probably changed"
+    )
 
     # Save the table as a parquet file
     save_folder.mkdir(parents=True, exist_ok=True)
