@@ -34,6 +34,7 @@ transform:
 	uv run python scripts/process_magic-schools.py
 	uv run python scripts/process_skills.py
 	uv run python scripts/process_weapon-properties.py
+	uv run python scripts/process_equipment.py
 
 
 coverage:

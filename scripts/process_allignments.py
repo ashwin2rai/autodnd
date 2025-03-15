@@ -35,6 +35,11 @@ if __name__ == "__main__":
         "Unexpected data organization, schema has probably changed"
     )
 
+    # Check if the output data has the expected schema before saving
+    assert set(df.columns.to_list()) == set(["name", "abbreviation", "desc"]), (
+        "Unexpected column names, schema has probably changed"
+    )
+
     # Save the table as a parquet file
     save_folder.mkdir(parents=True, exist_ok=True)
     df.to_parquet(save_folder / f"{ruleset}.parquet")

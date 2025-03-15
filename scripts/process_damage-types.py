@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
         # Quick check to ensure our manual additions and the original JSONs are alligned
         assert set(manual_additions_df.name.values) == set(df.name.values), (
-            "Detected a change to the damage types. Adjust the manual additions or change manual_additions switch to False and rerun the script."
+            "Detected a change to the damage types. Rewrite the manual additions in the script or change manual_additions switch to False and rerun the script."
         )
 
         # Merge manual additions and original json and also merge descriptions. Include the original JSON descriptions as 'Additional Descriptions'
@@ -85,6 +85,11 @@ if __name__ == "__main__":
         # Adding some placeholder columns which the manual additions include to keep schema consistent
         df[["examples", "strong_against", "weak_against"]] = ""
         output_df = df
+
+    # Check if the output data has the expected schema before saving
+    assert set(output_df.columns.to_list()) == set(
+        ["name", "examples", "strong_against", "weak_against", "desc"]
+    ), "Unexpected column names, schema has probably changed"
 
     # Save the table as a parquet file
     save_folder.mkdir(parents=True, exist_ok=True)

@@ -83,6 +83,11 @@ if __name__ == "__main__":
     # merging with the abilities dataframe
     output_df = pd.merge(df, abilities_df, on=ability_score_name_col, how="left")
 
+    # Check if the output data has the expected schema before saving
+    assert set(output_df.columns.to_list()) == set(
+        ["name", "ability_score_name", "desc", "ability_desc", "ability_full_name"]
+    ), "Unexpected column names, schema has probably changed"
+
     # Save the table as a parquet file
     save_folder.mkdir(parents=True, exist_ok=True)
     output_df.to_parquet(save_folder / f"{ruleset}.parquet")

@@ -38,6 +38,11 @@ if __name__ == "__main__":
     # cleaning up the desc column
     df[desc_col_str] = df[desc_col_str].apply(lambda x: " ".join(x))
 
+    # Check if the output data has the expected schema before saving
+    assert set(df.columns.to_list()) == set(["name", "desc", "url"]), (
+        "Unexpected column names, schema has probably changed"
+    )
+
     # Save the table as a parquet file
     save_folder.mkdir(parents=True, exist_ok=True)
     df.to_parquet(save_folder / f"{ruleset}.parquet")
