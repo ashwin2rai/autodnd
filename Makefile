@@ -31,12 +31,14 @@ transform:
 	uv run python scripts/process_damage-types.py
 	uv run python scripts/process_equipment-categories.py
 	uv run python scripts/process_languages.py
+	uv run python scripts/process_magic-items.py
 	uv run python scripts/process_magic-schools.py
 	uv run python scripts/process_skills.py
 	uv run python scripts/process_weapon-properties.py
 	uv run python scripts/process_equipment.py
 	uv run python scripts/process_features.py
-
+	uv run python scripts/process_rule-sections.py
+	uv run python scripts/process_rules.py
 
 
 coverage:
