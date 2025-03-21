@@ -114,7 +114,6 @@ if __name__ == "__main__":
     # Dropping unnecessary columns
     df = df.drop(
         [
-            url_col_str,
             equipment_category_index_str,
             equipment_category_url_str,
             damage_damage_type_index_str,
@@ -163,6 +162,7 @@ if __name__ == "__main__":
     assert set(output_df.columns.to_list()) == set(
         [
             "index",
+            "url",
             "name",
             "weapon_category",
             "weapon_range",

@@ -39,6 +39,8 @@ transform:
 	uv run python scripts/process_features.py
 	uv run python scripts/process_rule-sections.py
 	uv run python scripts/process_rules.py
+	uv run python scripts/process_proficiencies.py
+
 
 
 coverage:
