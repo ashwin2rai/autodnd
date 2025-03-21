@@ -37,7 +37,8 @@ transform:
 	uv run python scripts/process_weapon-properties.py
 	uv run python scripts/process_equipment.py
 	uv run python scripts/process_features.py
-
+	uv run python scripts/process_rule-sections.py
+	uv run python scripts/process_rules.py
 
 
 coverage:
