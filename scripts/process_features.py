@@ -53,11 +53,27 @@ feature_specific_subfeature_options_from_options_col_str = (
     "feature_specific_subfeature_options_from_options"
 )
 feature_specific_invocations_col_str = "feature_specific_invocations"
+feature_specific_terrain_cols = [
+    "feature_specific_terrain_type_options_type",
+    "feature_specific_terrain_type_options_from_options",
+    "feature_specific_terrain_type_options_choose",
+    "feature_specific_terrain_type_options_desc",
+    "feature_specific_terrain_type_options_from_option_set_type",
+]
+
+feature_specific_favored_enemies_cols = [
+    "feature_specific_enemy_type_options_from_options",
+    "feature_specific_enemy_type_options_type",
+    "feature_specific_enemy_type_options_desc",
+    "feature_specific_enemy_type_options_from_option_set_type",
+    "feature_specific_enemy_type_options_choose",
+]
+
 
 classes_name_col_str = "name"
 class_spellcasting_info_col_str = "spellcasting_info"
 
-
+# String used to fill NaN values
 unknown_value_fill_string = "Unknown or Not Applicable"
 
 if __name__ == "__main__":
@@ -120,6 +136,16 @@ if __name__ == "__main__":
             "feature_specific_subfeature_options_type",
             "feature_specific_subfeature_options_from_option_set_type",
             "feature_specific_subfeature_options_from_options",
+            "feature_specific_terrain_type_options_type",
+            "feature_specific_terrain_type_options_from_options",
+            "feature_specific_terrain_type_options_choose",
+            "feature_specific_terrain_type_options_desc",
+            "feature_specific_terrain_type_options_from_option_set_type",
+            "feature_specific_enemy_type_options_from_options",
+            "feature_specific_enemy_type_options_type",
+            "feature_specific_enemy_type_options_desc",
+            "feature_specific_enemy_type_options_from_option_set_type",
+            "feature_specific_enemy_type_options_choose",
             "parent_index",
             "parent_name",
             "parent_url",
@@ -271,13 +297,17 @@ if __name__ == "__main__":
     ] = new_desc
 
     # Dropping more unnecessary columns after all the pre-processing work above
+    # Dropping all the terrain related cols because the description covers it all
+    # Dropping all the favoured enemies related cols because the description covers it all
     df = df.drop(
         [
             feature_specific_subfeature_options_choose_col_str,
             feature_specific_subfeature_options_type_col_str,
             feature_specific_subfeature_options_from_option_set_type_col_str,
             feature_specific_subfeature_options_from_options_col_str,
-        ],
+        ]
+        + feature_specific_terrain_cols
+        + feature_specific_favored_enemies_cols,
         axis=1,
     )
 
