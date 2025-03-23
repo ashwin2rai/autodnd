@@ -71,14 +71,14 @@ if __name__ == "__main__":
     # Join the ability table with the newly grouped abilities table
     output_df = (
         pd.merge(df, skills, how="left", left_on=abilities_col_str, right_on="ab_name")
-        .drop([skills_col_str, urls_col_str], axis=1)
+        .drop([skills_col_str], axis=1)
         .fillna(na_string)
         .rename(columns={abilities_col_str: "ability_name"})
     )
 
     # Check if the output data has the expected schema before saving
     assert set(output_df.columns.to_list()) == set(
-        ["ability_name", "full_name", "desc", "skill_names"]
+        ["ability_name", "full_name", "desc", "skill_names", "url"]
     ), "Unexpected column names, schema has probably changed"
 
     # Save the table as a parquet file

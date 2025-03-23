@@ -65,7 +65,6 @@ if __name__ == "__main__":
     # Dropping unnecessary columns
     df = df.drop(
         [
-            url_col_str,
             index_col_str,
             ability_score_url_col_str,
             ability_score_index_col_str,
@@ -85,7 +84,14 @@ if __name__ == "__main__":
 
     # Check if the output data has the expected schema before saving
     assert set(output_df.columns.to_list()) == set(
-        ["name", "ability_score_name", "desc", "ability_desc", "ability_full_name"]
+        [
+            "name",
+            "ability_score_name",
+            "desc",
+            "ability_desc",
+            "ability_full_name",
+            "url",
+        ]
     ), "Unexpected column names, schema has probably changed"
 
     # Save the table as a parquet file
