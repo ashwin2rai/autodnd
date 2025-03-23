@@ -41,6 +41,8 @@ transform:
 	uv run python scripts/process_rules.py
 	uv run python scripts/process_proficiencies.py
 	uv run python scripts/process_traits.py
+	uv run python scripts/process_subclasses.py
+
 
 
 coverage:
