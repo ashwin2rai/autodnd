@@ -91,7 +91,7 @@ if __name__ == "__main__":
     ), "Unexpected data organization, schema has probably changed"
 
     # Dropping unnecessary columns
-    df = df.drop([index_col_str, url_col_str, reference_index_col_str], axis=1)
+    df = df.drop([index_col_str, reference_index_col_str], axis=1)
 
     # Creating a new column with the reference type, extracte from the reference url
     df = df.assign(
@@ -150,6 +150,7 @@ if __name__ == "__main__":
     assert set(df.columns.to_list()) == set(
         [
             "type",
+            "url",
             "name",
             "classes",
             "races",
